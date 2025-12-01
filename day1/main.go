@@ -1,56 +1,20 @@
 package main
 
 import (
-	//"bufio"
-	"fmt"
-	"log"
-	"strconv"
-	"strings"
-
-	//"io"
 	"os"
-	//"path/filepath"
+	"strconv"
 )
 
 func main() {
-	fileBytes, err := os.ReadFile("input.txt")
-	if err != nil {
-		log.Fatal("Error reding file")
+	input := ""
+	if len(os.Args) < 2 {
+		input = "input.txt"
+	} else {
+		input = os.Args[1]
 	}
 
-	fileString := string(fileBytes)
-	currentNumber := 50
-	count := 0
-	for line := range strings.SplitSeq(fileString, "\n") {
-		if line == "" {
-			continue
-		}
-		direction, number, err := ProcessLine(line)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		switch direction {
-		case "L":
-			currentNumber = currentNumber - number
-		case "R":
-			currentNumber = currentNumber + number
-		default:
-			log.Fatal("Unsupported direction: " + direction)
-		}
-
-		if currentNumber < 0 {
-			currentNumber = 100 + currentNumber
-		} else {
-			currentNumber = currentNumber % 100
-		}
-
-		if currentNumber == 0 {
-			count += 1
-		}
-	}
-
-	fmt.Println(count)
+	Day1(input)
+	Day2(input)
 }
 
 func ProcessLine(line string) (string, int, error) {
@@ -67,4 +31,22 @@ func ProcessLine(line string) (string, int, error) {
 	}
 
 	return direction, number, nil
+}
+
+func ProcessLineWithRounds(line string) (string, int, int, error) {
+	direction := string(line[0])
+	rotations := 0
+	numberString := string(line[1:])
+
+	number, err := strconv.Atoi(numberString)
+	if err != nil {
+		return "", 0, 0, err
+	}
+
+	if number > 99 {
+		rotations = number / 100
+	}
+
+	number = number % 100
+	return direction, number, rotations, nil
 }
