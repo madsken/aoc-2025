@@ -13,8 +13,8 @@ func main() {
 		input = os.Args[1]
 	}
 
-	Day1(input)
-	Day2(input)
+	Part1(input)
+	Part2(input)
 }
 
 func ProcessLine(line string) (string, int, error) {

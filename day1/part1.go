@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func Day1(file string) {
+func Part1(file string) {
 	fileBytes, err := os.ReadFile(file)
 	if err != nil {
 		log.Fatal("Error reding file")
