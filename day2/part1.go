@@ -35,7 +35,6 @@ func Part1(file string) {
 				result += i
 			}
 		}
-
 	}
 	fmt.Println(result)
 }
